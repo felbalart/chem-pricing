@@ -18,7 +18,7 @@ class Quote < ApplicationRecord
   before_create :set_current, :set_code
   after_validation :simulate!
 
-  validates_presence_of :freight_condition, :quantity, :payment_term
+  validates_presence_of :freight_condition, :quantity, :payment_term, :currency, :unit
   #, :freight_base_type
   #, :freight_subtype PONER DENUEVO CUANDO FOB DESACTIVE LA CAJA DE FRETE
   validate :city_when_corresponds, :taxes_when_not_padrao,
@@ -65,8 +65,8 @@ class Quote < ApplicationRecord
       markup: :attr,
       'optimal_markup.table_value': :nil,
       'optimal_markup.value': :nil,
-      'product.unit': :nil,
-      'cost.currency': :nil,
+      unit: :attr,
+      currency: :attr,
       fob_net_price: :attr,
       unit_freight: :attr,
       watched: :attr,

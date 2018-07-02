@@ -1,6 +1,8 @@
 module ConversorUtils
   extend self
   def unit_factor(from_unit, to_unit, density)
+    raise 'Unidade a converter não pode estar em branco' if to_unit.blank?
+    raise 'Unidade para converter desde: não pode estar em branco' if from_unit.blank?
     from_unit = from_unit.to_s.downcase
     to_unit = to_unit.to_s.downcase
     return 1.0 if from_unit == to_unit
@@ -14,6 +16,8 @@ module ConversorUtils
   end
 
   def currency_factor(from_currency, to_currency, brl_usd_rate = nil, brl_eur_rate = nil)
+    raise 'Moeda a converter não pode estar em branco' if to_currency.blank?
+    raise 'Moeda para converter desde: não pode estar em branco' if from_currency.blank?
     from_currency = from_currency.to_s.downcase
     to_currency = to_currency.to_s.downcase
     return 1.0 if from_currency == to_currency
