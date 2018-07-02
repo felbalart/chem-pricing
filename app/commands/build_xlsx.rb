@@ -245,7 +245,7 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
   def quote_fob_net_price_column(_q, row_num)
     r = row_num
     {
-      formula: "=IFERROR(IF(AND(R#{r}=\"\",S#{r}=\"\"),(M#{r}/1000*(1+P#{r})),IF(AND(R#{r}<>\"\",S#{r}=\"\"),(M#{r}*R#{r}/1000*(1+P#{r})),IF(AND(R#{r}=\"\",S#{r}<>\"\",L#{r}=\"KG\"),(M#{r}*AG#{r}/1000*(1+P#{r})),IF(AND(R#{r}=\"\",S#{r}<>\"\",L#{r}=\"LT\"),(M#{r}/AG#{r}/1000*(1+P#{r})),IF(AND(R#{r}<>\"\",S#{r}<>\"\",L#{r}=\"KG\"),(M#{r}*R#{r}*AG#{r}/1000*(1+P#{r})),IF(AND(R#{r}<=\"\",S#{r}<>\"\",L#{r}=\"LT\"),(M#{r}*R#{r}/AG#{r}/1000*(1+P#{r})),\"-\")))))),\"-\")",
+      formula: "=IFERROR(IF(AND(R#{r}=\"\",S#{r}=\"\"),(M#{r}*(1+P#{r})),IF(AND(R#{r}<>\"\",S#{r}=\"\"),(M#{r}*R#{r}*(1+P#{r})),IF(AND(R#{r}=\"\",S#{r}<>\"\",L#{r}=\"KG\"),(M#{r}*AG#{r}*(1+P#{r})),IF(AND(R#{r}=\"\",S#{r}<>\"\",L#{r}=\"L\"),(M#{r}/AG#{r}*(1+P#{r})),IF(AND(R#{r}<>\"\",S#{r}<>\"\",L#{r}=\"KG\"),(M#{r}*R#{r}*AG#{r}*(1+P#{r})),IF(AND(R#{r}<=\"\",S#{r}<>\"\",L#{r}=\"LT\"),(M#{r}*R#{r}/AG#{r}*(1+P#{r})),\"-\")))))),\"-\")",
       format: '$###,###.00'
     }
   end
@@ -262,7 +262,7 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
     r = row_num
     {
       formula:
-        "=IF(AND(R#{r}=\"\",S#{r}=\"\"),((Q#{r}+Y#{r})/(1-Z#{r}-AA#{r}))*(1+AE#{r}),IF(AND(R#{r}<>\"\",S#{r}=\"\"),((Q#{r}+Y#{r}*R#{r})/(1-Z#{r}-AA#{r}))*(1+AE#{r}),IF(AND(R#{r}=\"\",S#{r}<>\"\",L#{r}=\"KG\"),((Q#{r}+Y#{r}*AG#{r})/(1-Z#{r}-AA#{r}))*(1+AE#{r}),IF(AND(R#{r}=\"\",S#{r}<>\"\",L#{r}=\"LT\"),((Q#{r}+Y#{r}/AG#{r})/(1-Z#{r}-AA#{r}))*(1+AE#{r}),IF(AND(R#{r}<>\"\",S#{r}<>\"\",L#{r}=\"KG\"),((Q#{r}+Y#{r}*R#{r}*AG#{r})/(1-Z#{r}-AA#{r}))*(1+AE#{r}),IF(AND(R#{r}<>\"\",S#{r}<>\"\",L#{r}=\"LT\"),((Q#{r}+Y#{r}*R#{r}/AG#{r})/(1-Z#{r}-AA#{r}))*(1+AE#{r}),\"-\"))))))",
+        "=IF(AND(R#{r}=\"\",S#{r}=\"\"),((Q#{r}+Y#{r})/(1-Z#{r}-AA#{r}))*(1+AE#{r}),IF(AND(R#{r}<>\"\",S#{r}=\"\"),((Q#{r}+Y#{r}*R#{r})/(1-Z#{r}-AA#{r}))*(1+AE#{r}),IF(AND(R#{r}=\"\",S#{r}<>\"\",L#{r}=\"KG\"),((Q#{r}+Y#{r}*AG#{r})/(1-Z#{r}-AA#{r}))*(1+AE#{r}),IF(AND(R#{r}=\"\",S#{r}<>\"\",L#{r}=\"L\"),((Q#{r}+Y#{r}/AG#{r})/(1-Z#{r}-AA#{r}))*(1+AE#{r}),IF(AND(R#{r}<>\"\",S#{r}<>\"\",L#{r}=\"KG\"),((Q#{r}+Y#{r}*R#{r}*AG#{r})/(1-Z#{r}-AA#{r}))*(1+AE#{r}),IF(AND(R#{r}<>\"\",S#{r}<>\"\",L#{r}=\"L\"),((Q#{r}+Y#{r}*R#{r}/AG#{r})/(1-Z#{r}-AA#{r}))*(1+AE#{r}),\"-\"))))))",
       format: '$###,###.00'
     }
   end
