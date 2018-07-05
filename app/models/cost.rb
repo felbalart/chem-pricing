@@ -8,6 +8,7 @@ class Cost < ApplicationRecord
 
   validates_presence_of :product_id, :dist_center_id, :base_price,
     :currency, :amount_for_price
+  validates :base_price, numericality: { greater_than: 0 }
 
   after_save :update_watched_quotes
 

@@ -18,7 +18,18 @@ class TaxService < PowerTypes::Service.new
 
   def icms_rule_for(customer, product, origin_city_code, destination_city_code)
     mrs = matching_icms_rules(customer, product, origin_city_code, destination_city_code)
-    mrs.sort.reverse.first
+    mrs_a = mrs.reject { |tr| has_a_field_mismatch?(tr, customer, product, origin_city_code, destination_city_code) }
+    mrs_a.sort.reverse.first
+  end
+
+  def has_a_field_mismatch?(rule, customer, product, origin_city_code, destination_city_code)
+    return true if rule.customer.present? && rule.customer != customer
+    return true if rule.product.present? && rule.product != product
+    return true if rule.origin.present? && rule.origin.length == 2 && rule.origin != origin_city_code[0..1]
+    return true if rule.destination.present? && rule.destination.length == 2 && rule.destination != destination_city_code[0..1]
+    return true if rule.origin.present? && rule.origin.length > 2 && rule.origin != origin_city_code
+    return true if rule.destination.present? && rule.destination.length > 2 && rule.destination != destination_city_code
+    false
   end
 
   def matching_icms_rules(customer, product, origin_city_code, destination_city_code)
