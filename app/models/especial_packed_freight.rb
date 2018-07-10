@@ -1,6 +1,11 @@
 class EspecialPackedFreight < ApplicationRecord
+  extend Enumerize
+
 	belongs_to :vehicle
   belongs_to :upload, required: false
+  validates_presence_of :subtype
+
+  enumerize :subtype, in: Quote.freight_subtype_options(:special)
 
   # removed
   # after_save :update_watched_quotes
@@ -14,6 +19,7 @@ class EspecialPackedFreight < ApplicationRecord
 
   def self.xls_fields
     {
+      subtype: :key,
       origin: :key,
       destination: :key,
       'vehicle.name': :f_key,
@@ -35,6 +41,7 @@ end
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  upload_id   :integer
+#  subtype     :string
 #
 # Indexes
 #

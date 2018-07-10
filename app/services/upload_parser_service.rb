@@ -84,7 +84,7 @@ class UploadParserService < PowerTypes::Service.new(:u)
 
   def tr_freight_subtype(pt_subtype)
     @cbf_translations ||=
-      Quote::PACKED_SUBTYPES.merge(Quote::BULK_BASIC_SUBTYPES).merge(ChoppedBulkFreight.translations).invert
+      Quote::PACKED_SUBTYPES.merge(Quote::SPECIAL_SUBTYPES).merge(Quote::BULK_BASIC_SUBTYPES).merge(ChoppedBulkFreight.translations).invert
     @cbf_translations[pt_subtype].to_s
   end
 

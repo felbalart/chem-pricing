@@ -68,6 +68,7 @@
                 <%= f.input :freight_base_type, as: :radio, input_html: { class: 'freight-show-if-padrao' } %>
                 <%= f.input :freight_subtype, as: :select, collection: Quote.freight_subtype_options(:bulk).invert, input_html: { class: 'bulk-subtype-input freight-show-if-padrao' } %>
                 <%= f.input :freight_subtype, as: :select, collection: Quote.freight_subtype_options(:packed).invert, input_html: { class: 'packed-subtype-input freight-show-if-padrao' } %>
+                <%= f.input :freight_subtype, as: :select, collection: Quote.freight_subtype_options(:special).invert, input_html: { class: 'special-subtype-input freight-show-if-padrao' } %>
                 <%= f.input :vehicle, collection: Vehicle.active, input_html: { class: 'freight-show-if-padrao' } %>
             <% end %>
           </div>

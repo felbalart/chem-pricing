@@ -28,7 +28,7 @@ class Quote < ApplicationRecord
   enumerize :freight_condition, in: [:cif, :fob, :redispatch]
   enumerize :unit, in: [:kg, :lt]
   enumerize :currency, in: [:brl, :usd, :eur]
-  enumerize :freight_base_type, in: [:bulk, :packed]
+  enumerize :freight_base_type, in: [:bulk, :packed, :special]
 
   scope :watched_current, -> { where(watched: true, current: true) }
 
@@ -112,7 +112,10 @@ class Quote < ApplicationRecord
     if freight_padrao
       if freight_condition != 'fob'
         errors.add(:freight_base_type, "Obrigatório se 'Frete' foi selecionado") if freight_base_type.blank?
-        errors.add(:freight_subtype, "Obrigatório se 'Frete' foi selecionado") if freight_subtype.blank?
+        errors.add(:freight_subtype, "Obrigatório se 'Frete' foi se lecionado") if freight_subtype.blank?
+        return if freight_base_type.blank? || freight_subtype.blank?
+        expected_subtypes = self.class.freight_subtype_options(freight_base_type)
+        errors.add(:freight_subtype, "Não corresponde ao tipo de frete selecionado") unless freight_subtype.in?(expected_subtypes)
       end
     elsif unit_freight.nil?
       errors.add(:unit_freight, 'Deve inserir un valor se não escolhe padrão')
@@ -289,10 +292,9 @@ class Quote < ApplicationRecord
   end
 
   PACKED_SUBTYPES = {
-        chemical: 'Quimico',
-        pharma: 'Farma',
-        cosmetic: 'Cosmético',
-        special: 'Frete Especial'
+      chemical: 'Quimico',
+      pharma: 'Farma',
+      cosmetic: 'Cosmético'
     }
 
   BULK_BASIC_SUBTYPES =    {
@@ -300,9 +302,15 @@ class Quote < ApplicationRecord
       product: 'Produto'
     }
 
+  SPECIAL_SUBTYPES = {
+      chemical: 'Quimico',
+      pharma: 'Farma',
+      cosmetic: 'Cosmético'
+  }
+
   def freight_subtype_text
     return unless freight_subtype.present?
-    basic_subtypes = PACKED_SUBTYPES.merge(BULK_BASIC_SUBTYPES)
+    basic_subtypes = PACKED_SUBTYPES.merge(BULK_BASIC_SUBTYPES).merge(SPECIAL_SUBTYPES)
     if freight_subtype.in?(basic_subtypes.keys.to_s)
       basic_subtypes[freight_subtype.to_sym]
     elsif freight_subtype.starts_with?('chopped_')
@@ -314,6 +322,7 @@ class Quote < ApplicationRecord
 
   def self.freight_subtype_options(type = nil)
     return PACKED_SUBTYPES if type.try(:to_sym) == :packed
+    return SPECIAL_SUBTYPES if type.try(:to_sym) == :special
     bulk_chopped_subtypes = ChoppedBulkFreight.all.map do |cbf|
         ["chopped_#{cbf.id}".to_sym, cbf.operation]
     end.to_h

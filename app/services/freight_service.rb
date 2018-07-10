@@ -96,15 +96,27 @@ class FreightService < PowerTypes::Service.new(:q)
     @freight = ((amount + toll) * capacity) / quantity
   end
 
-  def packed_special
-    freight_obj = EspecialPackedFreight.where(origin: @q.dist_center.city.code, destination: @q.destination_itinerary , vehicle: @q.vehicle).last
+  def special_calc
+    freight_obj = EspecialPackedFreight.where(subtype: @q.freight_subtype, origin: @q.dist_center.city.code, destination: @q.destination_itinerary , vehicle: @q.vehicle).last
     unless freight_obj
-      return error('Frete Embalado - Especial não foi encontrado pelo origem/destino/veiculo dado')
+      return error("Frete Especial não foi encontrado pelo subtipo/origem/destino/veiculo dado")
     end
     amount = freight_obj.amount
     weight = @q.quantity_kgs
 
     @freight = (amount) / weight
+  end
+
+  def special_chemical
+    packed_special
+  end
+
+  def special_pharma
+    packed_special
+  end
+
+  def special_cosmetic
+    packed_special
   end
 
   def packed_pharma

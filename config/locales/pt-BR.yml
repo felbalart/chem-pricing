@@ -69,8 +69,8 @@ pt-BR:
         one: Frete Granel Produto
         other: Frete Granel Produtos
       especial_packed_freight:
-        one: Frete Embalado Especial
-        other: Frete Embalado Especiais
+        one: Frete Especial
+        other: Frete Especial
       normal_packed_freight:
         one: Frete Embalado Normal
         other: Frete Embalado Normal
@@ -295,6 +295,7 @@ pt-BR:
         product: Produto
         toll: Pedagio
       especial_packed_freight:
+        subtype: Subtipo
         origin: Origem
         destination: Destino
         vehicle: Tp Veic
@@ -356,6 +357,11 @@ pt-BR:
         on_request: CONTRA PEDIDO
         discontinued: DESCONTINUADO
         regular: REGULAR
+    especial_packed_freight:
+      subtype:
+        chemical: Químico
+        pharma: Farma
+        cosmetic: Cosmético
     icms_tax:
       origin/destination:
         ac: AC
@@ -389,6 +395,7 @@ pt-BR:
       freight_base_type:
         bulk: Granel
         packed: Embalado
+        special: Especial
       freight_condition:
         cif: CIF
         fob: FOB

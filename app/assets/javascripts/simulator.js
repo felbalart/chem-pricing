@@ -3,6 +3,7 @@ function toggleFreightSubtypeInputs() {
   var f_type = $('#quote_freight_base_type_input input:checked').val();
   $('.bulk-subtype-input').parent().toggle(f_type === 'bulk');
   $('.packed-subtype-input').parent().toggle(f_type === 'packed');
+  $('.special-subtype-input').parent().toggle(f_type === 'special');
 }
 
 function toggleFreightPadraoInput() {
@@ -22,7 +23,7 @@ function toggleVehicleInput() {
   if(s2_subtype !== null) {
     f_subtype = s2_subtype['id'];
   }
-  var show_vehicle = ((f_type === 'bulk' && (f_subtype === 'normal' || f_subtype === 'product')) || (f_type === 'packed' && f_subtype === 'special'));
+  var show_vehicle = ((f_type === 'bulk' && (f_subtype === 'normal' || f_subtype === 'product')) || (f_type === 'special'));
   $('#quote_vehicle_input').toggle(show_vehicle);
 }
 
@@ -240,7 +241,7 @@ $(function () {
     togglePriceMarkupInput();
   });
 
-  $('#quote_freight_base_type_bulk, #quote_freight_base_type_packed').change(function () {
+  $('#quote_freight_base_type_bulk, #quote_freight_base_type_packed, #quote_freight_base_type_special').change(function () {
     toggleFreightSubtypeInputs();
     toggleVehicleInput();
   });
