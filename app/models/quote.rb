@@ -114,8 +114,8 @@ class Quote < ApplicationRecord
         errors.add(:freight_base_type, "Obrigatório se 'Frete' foi selecionado") if freight_base_type.blank?
         errors.add(:freight_subtype, "Obrigatório se 'Frete' foi se lecionado") if freight_subtype.blank?
         return if freight_base_type.blank? || freight_subtype.blank?
-        expected_subtypes = self.class.freight_subtype_options(freight_base_type)
-        errors.add(:freight_subtype, "Não corresponde ao tipo de frete selecionado") unless freight_subtype.in?(expected_subtypes)
+        expected_subtypes = self.class.freight_subtype_options(freight_base_type).keys.map(&:to_s)
+        errors.add(:freight_subtype, "Não corresponde ao tipo de frete selecionado") unless freight_subtype.to_s.in?(expected_subtypes)
       end
     elsif unit_freight.nil?
       errors.add(:unit_freight, 'Deve inserir un valor se não escolhe padrão')
@@ -328,7 +328,7 @@ class Quote < ApplicationRecord
     end.to_h
     bulk_subtypes = BULK_BASIC_SUBTYPES.merge(bulk_chopped_subtypes)
     return bulk_subtypes if type.try(:to_sym) == :bulk
-    PACKED_SUBTYPES.merge(bulk_subtypes)
+    PACKED_SUBTYPES.merge(SPECIAL_SUBTYPES).merge(bulk_subtypes)
   end
 end
 
