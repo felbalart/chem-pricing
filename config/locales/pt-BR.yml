@@ -407,6 +407,10 @@ pt-BR:
       unit:
         kg: KG
         lt: L
+    tax_rule:
+      tax_type:
+        icms: ICMS
+        pis_confins: PIS/CONFINS
   flash:
     actions:
       create:

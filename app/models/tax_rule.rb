@@ -34,12 +34,14 @@ class TaxRule < ApplicationRecord
 
   def self.xls_fields
     {
+        tax_type: :attr,
         'customer.code': :f_key,
         'customer.name': nil,
         'product.sku': :f_key,
         'product.name': nil,
         origin: :attr,
-        destination: :attr
+        destination: :attr,
+        value: :attr
     }
   end
 
