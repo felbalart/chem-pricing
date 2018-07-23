@@ -241,6 +241,7 @@ pt-BR:
         state: Estado
         country: pais
         code: Itinerario
+        old_code: Código Histórico
       country:
         name: Nome
         code: Codigo

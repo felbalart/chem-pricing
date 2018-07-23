@@ -21,7 +21,6 @@ class City < ApplicationRecord
       code: :key,
     }
   end
-
 end
 
 # == Schema Information
