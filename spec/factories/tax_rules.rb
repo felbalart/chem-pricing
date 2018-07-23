@@ -6,5 +6,6 @@ FactoryGirl.define do
     origin "MyString"
     destination "MyString"
     value "9.99"
+    upload
   end
 end

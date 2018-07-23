@@ -2,6 +2,7 @@ class TaxRule < ApplicationRecord
   extend Enumerize
   belongs_to :customer, required: false
   belongs_to :product, required: false
+  belongs_to :upload, required: false
 
   validates_presence_of :tax_type, :value
   validate :pis_confis_blank_cities
@@ -102,11 +103,13 @@ end
 #  value       :decimal(, )
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  upload_id   :integer
 #
 # Indexes
 #
 #  index_tax_rules_on_customer_id  (customer_id)
 #  index_tax_rules_on_product_id   (product_id)
+#  index_tax_rules_on_upload_id    (upload_id)
 #
 # Foreign Keys
 #
