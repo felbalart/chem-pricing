@@ -99,6 +99,7 @@ pt-BR:
         city: Cidade
         email: Email
         contact: Contacto
+        old_code: Código Histórico
       contact:
         customer: Cliente
         first_name: Primeiro Nome

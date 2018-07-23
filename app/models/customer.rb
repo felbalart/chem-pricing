@@ -50,6 +50,7 @@ end
 #  contact      :string
 #  display_name :string
 #  upload_id    :integer
+#  old_code     :string
 #
 # Indexes
 #

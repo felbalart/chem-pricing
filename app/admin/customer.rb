@@ -1,6 +1,6 @@
 ActiveAdmin.register Customer do
   menu parent: '6. Companhia'
-  permit_params :code, :name, :email, :city_id, :cnpj, :contact, :country_id
+  permit_params :code, :name, :email, :city_id, :cnpj, :contact, :country_id, :old_code
   actions :all
 
   index do
@@ -12,6 +12,7 @@ ActiveAdmin.register Customer do
     column :city
     column :contact
     column :email
+    column :old_code
     actions
   end
 
@@ -22,6 +23,7 @@ ActiveAdmin.register Customer do
   filter :country
   filter :state
   filter :city
+  filter :old_code
 
   csv do
     build_csv_columns(:customer).each do |k, v|
