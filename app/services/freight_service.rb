@@ -108,15 +108,15 @@ class FreightService < PowerTypes::Service.new(:q)
   end
 
   def special_chemical
-    packed_special
+    special_calc
   end
 
   def special_pharma
-    packed_special
+    special_calc
   end
 
   def special_cosmetic
-    packed_special
+    special_calc
   end
 
   def packed_pharma
