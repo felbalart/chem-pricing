@@ -33,6 +33,7 @@ end
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  upload_id  :integer
+#  old_code   :string
 #
 # Indexes
 #

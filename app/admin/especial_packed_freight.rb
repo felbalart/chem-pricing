@@ -4,7 +4,7 @@ ActiveAdmin.register EspecialPackedFreight do
   actions :all
 
   index do
-    column :subtype
+    column(:subtype) { |r| r.subtype&.text }
     column :origin
     column :destination
     column("Tp Veic") { |r| r.vehicle.name }

@@ -5,7 +5,7 @@ class EspecialPackedFreight < ApplicationRecord
   belongs_to :upload, required: false
   validates_presence_of :subtype
 
-  enumerize :subtype, in: Quote.freight_subtype_options(:special)
+  enumerize :subtype, in: Quote.freight_subtype_options(:special).keys
 
   # removed
   # after_save :update_watched_quotes
