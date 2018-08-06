@@ -39,9 +39,11 @@ class FreightService < PowerTypes::Service.new(:q)
     if @q.product && @q.dist_center
       error("Não for encontrada para o produto/CD selecionado", :cost) unless @q.cost
     end
-
-    @freight /= @q.brl_usd if @q.cost.currency.usd?
-    @freight /= @q.brl_eur if @q.cost.currency.eur?
+    # DEPRECATED: Now uses ConversorUtils
+    #@freight /= @q.brl_usd if @q.currency.usd?
+    #@freight /= @q.brl_eur if @q.currency.eur?
+    currency_factor = ConversorUtils.currency_factor(:BRL, @q.currency, @q.brl_usd, @q.brl_eur)
+    @freight *= currency_factor
   end
 
   def run_freight_by_type(type, subtype)
